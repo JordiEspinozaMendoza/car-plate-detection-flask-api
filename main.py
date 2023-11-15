@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from utils.predictions import getPredictionFromRoboflow
-from utils.images import cutImage, labelImage
+from utils.images import cutImage, labelImage, readText
 from dotenv import load_dotenv
 from flask_cors import CORS
 from PIL import Image
@@ -42,7 +42,7 @@ def process_image():
         for res in detections:
             if res["name"] == "car-plate":
                 result = cutImage(file, res)
-                text = ""
+                text = readText(result["cv2"])
 
                 car_plates.append(
                     {"image": result["image"].decode("utf-8"), "text": text}
