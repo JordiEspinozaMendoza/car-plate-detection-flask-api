@@ -22,7 +22,13 @@ def health_check():
     return jsonify({"status": "UP"})
 
 
-@app.route("/api/process-image/", methods=["POST"])
+@app.route("/api/echo", methods=["POST"])
+def echo():
+    data = request.get_json()
+    return jsonify(data)
+
+
+@app.route("/api/process-image", methods=["POST"])
 def process_image():
     try:
         image = request.files["file"].read()
