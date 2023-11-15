@@ -52,8 +52,14 @@ def process_image():
         )
     except Exception as e:
         error = str(e)
+
         print(e, sys.exc_info()[-1].tb_lineno)
 
         return jsonify(
-            {"results": [], "car_plates": [], "error": str(e), "status": "error"}
+            {"results": [], "car_plates": [], "error": error, "status": "error"}
         )
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
